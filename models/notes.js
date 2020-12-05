@@ -10,17 +10,18 @@ module.exports = (sequelize, Sequelize) => {
       title: {
         type: Sequelize.STRING
       },
-      description: {
+      descriptionI: {
         type: Sequelize.STRING
       },
-      UserID: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: User,
-          key: "UserID"
-        }
-      }
     });
+
+    Note.associate = models => {
+      Note.belongsTo(models.User, {
+        foreignKey: {
+          allowNull: false
+        }
+      });
+    }
   
     return Note;
   };
