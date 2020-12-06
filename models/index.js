@@ -1,4 +1,6 @@
-const dbConfig = require("../app/db.config.js");
+const dbConfig = require("../app/config/db.config.js");
+const authJwt = require('../middleware/authJwt');
+const verifySignUp = require('../middleware/verifySignUp');
 
 const Sequelize = require("sequelize");
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
@@ -25,4 +27,6 @@ db.users = require("./users.js")(sequelize, Sequelize);
 db.notes.hasOne(db.users)
 db.users.belongsTo(db.notes)
 
-module.exports = db;
+module.exports = {
+  db
+}
