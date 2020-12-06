@@ -2,6 +2,7 @@ const db = require("../models");
 const Note = db.notes;
 const Op = db.Sequelize.Op;
 
+//note creation title and description by req.body
 exports.create = (req, res) => {
   if (!req.body.title) {
     res.status(400).send({
@@ -27,6 +28,7 @@ exports.create = (req, res) => {
     });
 };
 
+//find all notes with titile in req.query
 exports.findAll = (req, res) => {
     const title = req.query.title;
     var condition = title ? { title: { [Op.iLike]: `%${title}%` } } : null;
@@ -43,6 +45,7 @@ exports.findAll = (req, res) => {
       });
   };
 
+//find by Pk which is id
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
@@ -57,6 +60,7 @@ exports.findOne = (req, res) => {
       });
 };
 
+//http put 
 exports.update = (req, res) => {
     const id = req.params.id;
 
@@ -81,6 +85,7 @@ exports.update = (req, res) => {
       });
 };
 
+//delete note
 exports.delete = (req, res) => {
     const id = req.params.id;
 
@@ -105,6 +110,7 @@ exports.delete = (req, res) => {
       });
 };
 
+//delete all notes should include this only for Admin role, which i didnt create ;)
 exports.deleteAll = (req, res) => {
     Note.destroy({
         where: {},
