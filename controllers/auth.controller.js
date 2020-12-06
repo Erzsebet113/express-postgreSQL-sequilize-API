@@ -7,8 +7,9 @@ const Op = db.Sequelize.Op;
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 
+//user registration using bcrypt for password storage
 exports.signup = (req, res) => {
-  // Save User to Database
+
   User.create({
     name: req.body.name,
     password: bcrypt.hashSync(req.body.password, 8)
@@ -21,6 +22,7 @@ exports.signup = (req, res) => {
     });
 };
 
+//User signing prob can bring email verification too here
 exports.signin = (req, res) => {
   User.findOne({
     where: {
@@ -44,8 +46,9 @@ exports.signin = (req, res) => {
         });
       }
 
+      //sign token for 24h
       var token = jwt.sign({ id: user.id }, config.secret, {
-        expiresIn: 86400 // 24 hours
+        expiresIn: 86400
       });
     })
     .catch(err => {
