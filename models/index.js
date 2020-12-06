@@ -27,6 +27,4 @@ db.users = require("./users.js")(sequelize, Sequelize);
 db.notes.hasOne(db.users)
 db.users.belongsTo(db.notes)
 
-module.exports = {
-  db
-}
+module.exports = db;
