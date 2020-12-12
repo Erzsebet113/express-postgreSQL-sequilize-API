@@ -28,7 +28,7 @@ exports.create = (req, res) => {
     });
 };
 
-//find all notes with titile in req.query
+//find all notes with title provided by req.query
 exports.findAll = (req, res) => {
     const title = req.query.title;
     var condition = title ? { title: { [Op.iLike]: `%${title}%` } } : null;

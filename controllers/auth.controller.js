@@ -55,3 +55,22 @@ exports.signin = (req, res) => {
       res.status(500).send({ message: err.message });
     });
 };
+
+exports.signOut = (req, res) => {
+
+  User.findOne({
+    where: {
+      name: req.body.name
+    }
+  })
+    .then(user => {
+      
+      if(token) {
+        jwt.destroy(token)
+      }
+      res.send(user)
+    })
+    .catch(err => {
+      res.status(500).send({ message: err.message });
+    });
+};
